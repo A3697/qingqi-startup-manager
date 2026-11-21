@@ -1,0 +1,13 @@
+/release/
+/dist/
+/data/
+/backups/
+/publication/
+/docs/main-window.png
+/verification/*/
+/verification/*.json
+/verification/*.txt
+*.user
+*.suo
+*.pdb
+*.tmp

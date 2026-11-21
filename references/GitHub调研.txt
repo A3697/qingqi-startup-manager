@@ -1,0 +1,46 @@
+GitHub 项目调研，2026-11-11
+
+采用参考实现路线，延续现有独立 C# 启动器，不安装第三方发行包。
+成品使用 Windows 自带 .NET Framework 4.8，无 NuGet 运行依赖、无注入、无新增服务。
+
+1. Faustvii/StartupManager
+https://github.com/Faustvii/StartupManager
+MIT。CLI 工具；读取 Run、启动文件夹、计划任务并管理其状态。
+参考：启动项来源分类和读取思路。轻启的扫描仅只读，不复用其禁用或删除第三方启动项功能。
+核对源文件：
+src/StartupManager.Services/Registries/RegistryService.cs
+blob SHA: a0f4f9f2b6efca9bf1262feeaacdb1177e81de85
+许可证保存在 StartupManager-MIT.txt。
+
+2. AlexanderPro/SmartSystemMenu
+https://github.com/AlexanderPro/SmartSystemMenu
+MIT。提供窗口隐藏、最大化/最小化、进程优先级和托盘等功能。
+参考：Win32 窗口枚举、按进程识别窗口、窗口显示状态控制的结构。
+轻启没有复制其全局 Hook/注入模块，也不安装其全套程序。
+许可证保存在 SmartSystemMenu-MIT.txt。
+
+3. jeffcox111/LaunchLater
+https://github.com/jeffcox111/LaunchLater
+GPL-2.0，C# / .NET Framework / WPF。具备图形化延迟启动。
+仓库最后推送为 2018 年；构建还提及旧版 Blend SDK。
+作为功能比较，没有复制源码或纳入成品。
+
+4. syx594/DelayedStartupToolPro
+https://github.com/syx594/DelayedStartupToolPro
+中文 WPF + WebView2 项目；介绍有扫描、延迟、排序和隐藏模式。
+检查仓库文件列表和 metadata 时未发现明确许可证。
+其 manifest/README 说明默认 requireAdministrator。
+没有据此复制代码或运行其发行包，也没有采纳其更改 UAC 的建议。
+
+5. benbuck/rbtray
+https://github.com/benbuck/rbtray
+GPL，窗口托盘工具，维护模式。不是完整的多软件启动调度器。
+作为窗口恢复交互参考；没有复制其 Hook 或源代码。
+
+Windows 原生 API 核对：
+https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-showwindow
+https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-showwindowasync
+https://learn.microsoft.com/en-us/windows/win32/winprog64/shared-registry-keys
+当前用户 Run 在 32/64 位视图间共享，因此只读取一次；机器级 Run 分别读取两个视图。
+
+调研仅确认来源、公开代码和许可证；没有运行这些第三方软件验证全部功能。
